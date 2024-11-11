@@ -129,7 +129,7 @@ function ContactList({ searchQuery }) {
           <table className="table-auto w-full text-sm text-gray-700 mt-2">
             <thead>
               <tr className="text-left border-b border-gray-300">
-                <th className="px-4 py-2">Avatar</th>
+                <th className="px-4 py-2"></th>
                 <th className="px-4 py-2">Nombre</th>
                 <th className="px-4 py-2">Correo</th>
                 <th className="px-4 py-2">Teléfono</th>
@@ -153,7 +153,7 @@ function ContactList({ searchQuery }) {
                   <td className="px-4 py-2">{contact.email}</td>
                   <td className="px-4 py-2">{contact.phone}</td>
                   <td className="px-4 py-2">{contact.company}</td>
-                  <td className="px-4 py-2 flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <td className="px-4 py-2 flex space-x-2 gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                     <button
                       onClick={(e) => { e.stopPropagation(); toggleFavoriteStatus(contact); }}
                       className="p-2 rounded bg-gray-200 hover:bg-gray-300"
@@ -193,7 +193,7 @@ function ContactList({ searchQuery }) {
           <table className="table-auto w-full text-sm text-gray-700 mt-2">
             <thead>
               <tr className="text-left border-b border-gray-300">
-                <th className="px-4 py-2">Avatar</th>
+                <th className="px-4 py-2"></th>
                 <th className="px-4 py-2">Nombre</th>
                 <th className="px-4 py-2">Correo</th>
                 <th className="px-4 py-2">Teléfono</th>
@@ -217,7 +217,7 @@ function ContactList({ searchQuery }) {
                   <td className="px-4 py-2">{contact.email}</td>
                   <td className="px-4 py-2">{contact.phone}</td>
                   <td className="px-4 py-2">{contact.company}</td>
-                  <td className="px-4 py-2 flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <td className="px-4 py-2 flex space-x-2 gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                     <button
                       onClick={(e) => { e.stopPropagation(); toggleFavoriteStatus(contact); }}
                       className="p-2 rounded bg-gray-200 hover:bg-gray-300"
