@@ -129,6 +129,7 @@ function ContactList({ searchQuery }) {
           <table className="table-auto w-full text-sm text-gray-700 mt-2">
             <thead>
               <tr className="text-left border-b border-gray-300">
+                <th className="px-4 py-2">Avatar</th>
                 <th className="px-4 py-2">Nombre</th>
                 <th className="px-4 py-2">Correo</th>
                 <th className="px-4 py-2">Teléfono</th>
@@ -143,7 +144,7 @@ function ContactList({ searchQuery }) {
                   className="group hover:bg-gray-100 cursor-pointer" 
                   onClick={() => handleContactClick(contact)}
                 >
-                  <td className="px-4 py-2 flex items-center gap-2">
+                  <td className="px-4 py-2">
                     <div className={`${generateAvatarColor(contact.name)} w-8 h-8 rounded-full flex items-center justify-center text-white`}>
                       {contact.name ? contact.name.charAt(0).toUpperCase() : '?'}
                     </div>
@@ -192,6 +193,7 @@ function ContactList({ searchQuery }) {
           <table className="table-auto w-full text-sm text-gray-700 mt-2">
             <thead>
               <tr className="text-left border-b border-gray-300">
+                <th className="px-4 py-2">Avatar</th>
                 <th className="px-4 py-2">Nombre</th>
                 <th className="px-4 py-2">Correo</th>
                 <th className="px-4 py-2">Teléfono</th>
@@ -206,7 +208,7 @@ function ContactList({ searchQuery }) {
                   className="group hover:bg-gray-100 cursor-pointer" 
                   onClick={() => handleContactClick(contact)}
                 >
-                  <td className="px-4 py-2 flex items-center gap-2">
+                  <td className="px-4 py-2">
                     <div className={`${generateAvatarColor(contact.name)} w-8 h-8 rounded-full flex items-center justify-center text-white`}>
                       {contact.name ? contact.name.charAt(0).toUpperCase() : '?'}
                     </div>
@@ -249,12 +251,8 @@ function ContactList({ searchQuery }) {
         </div>
       )}
 
-      <ContactModal 
-        isOpen={isModalOpen} 
-        contact={selectedContact} 
-        onClose={closeModal}
-        onDelete={handleDelete} // Pasamos la función handleDelete al modal
-      />
+      {/* Modal para editar o ver detalles del contacto */}
+      {isModalOpen && <ContactModal contact={selectedContact} closeModal={closeModal} />}
     </div>
   );
 }
