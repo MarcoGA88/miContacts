@@ -29,14 +29,6 @@ function Sidebar() {
           <Phone className="mr-3" />
           Contactos
         </Link>
-
-        <Link
-          to="/favorites"
-          className="flex items-center py-3 px-4 rounded-2xl hover:bg-blue-200 transition-colors"
-        >
-          <Star className="mr-3" />
-          Favoritos
-        </Link>
       </nav>
 
       {/* Settings Section */}

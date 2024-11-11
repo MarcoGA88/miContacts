@@ -17,4 +17,12 @@ router.delete('/contacts/:id', contactsController.deleteContactPermanently);
 // Otras rutas
 router.get('/contacts/recent/all', contactsController.getRecentContacts);
 
+// Ruta para marcar un contacto como favorito
+router.put('/contacts/:id/favorite/mark', contactsController.markFavorite);
+
+// Ruta para desmarcar un contacto como favorito
+router.put('/contacts/:id/favorite/unmark', contactsController.unmarkFavorite);
+
+
+
 module.exports = router; // Asegúrate de exportar las rutas

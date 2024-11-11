@@ -168,6 +168,35 @@ const getRecentContacts = async (req, res) => {
 };
 
 
+const markFavorite = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const contact = await contactModel.markFavorite(id);
+    if (!contact) {
+      return res.status(404).json({ message: 'Contacto no encontrado' });
+    }
+    res.status(200).json(contact);
+  } catch (error) {
+    console.error('Error al marcar como favorito:', error);
+    res.status(500).json({ message: 'Error al marcar como favorito' });
+  }
+};
+
+const unmarkFavorite = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const contact = await contactModel.unmarkFavorite(id);
+    if (!contact) {
+      return res.status(404).json({ message: 'Contacto no encontrado' });
+    }
+    res.status(200).json(contact);
+  } catch (error) {
+    console.error('Error al desmarcar como favorito:', error);
+    res.status(500).json({ message: 'Error al desmarcar como favorito' });
+  }
+};
+
+
 
 module.exports = {
   createContact,
@@ -178,5 +207,7 @@ module.exports = {
   restoreFromTrash,
   getAllTrashContacts,
   deleteContactPermanently,
-  getRecentContacts, // Nueva función de contactos recientes
+  markFavorite,
+  unmarkFavorite,
+  getRecentContacts// Nueva función de contactos recientes
 };

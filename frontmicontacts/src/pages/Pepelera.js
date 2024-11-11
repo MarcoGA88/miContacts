@@ -5,6 +5,7 @@ import {
   restoreFromTrash,
   deleteContactPermanently,
 } from "../api/contactService";
+import { ArrowBack, Trash2, RefreshCcw } from "lucide-react"; // Importamos los iconos
 
 const Papelera = () => {
   const [deletedContacts, setDeletedContacts] = useState([]);
@@ -22,6 +23,18 @@ const Papelera = () => {
     fetchDeletedContacts();
   }, []);
 
+  const generateAvatarColor = (name) => {
+    if (!name) return 'bg-gray-500';
+    const firstLetter = name.trim().charAt(0).toLowerCase();
+    const colors = [
+      'bg-red-400', 'bg-blue-400', 'bg-green-400',
+      'bg-yellow-400', 'bg-purple-400', 'bg-pink-400',
+      'bg-teal-400', 'bg-indigo-400'
+    ];
+    const colorIndex = firstLetter.charCodeAt(0) % colors.length;
+    return colors[colorIndex];
+  };
+
   const handleRestoreContact = (contact) => {
     Swal.fire({
       title: "¿Restaurar contacto?",
@@ -30,6 +43,10 @@ const Papelera = () => {
       showCancelButton: true,
       confirmButtonText: "Restaurar",
       cancelButtonText: "Cancelar",
+      customClass: {
+        title: 'text-lg', // Aumentamos el tamaño del título
+        content: 'text-sm', // Hacemos el texto más pequeño
+      }
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
@@ -61,6 +78,10 @@ const Papelera = () => {
       confirmButtonText: "Eliminar permanentemente",
       cancelButtonText: "Cancelar",
       reverseButtons: true,
+      customClass: {
+        title: 'text-lg', // Aumentamos el tamaño del título
+        content: 'text-sm', // Hacemos el texto más pequeño
+      }
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
@@ -95,6 +116,7 @@ const Papelera = () => {
         <table className="table-auto w-full text-sm text-gray-700">
           <thead>
             <tr className="text-left border-b border-gray-300">
+              <th className="px-4 py-2">Avatar</th> {/* Nueva columna para el avatar */}
               <th className="px-4 py-2">Nombre</th>
               <th className="px-4 py-2">Correo</th>
               <th className="px-4 py-2">Teléfono</th>
@@ -104,6 +126,11 @@ const Papelera = () => {
           <tbody>
             {deletedContacts.map((contact) => (
               <tr key={contact.id}>
+                <td className="px-4 py-2 flex items-center gap-2">
+                  <div className={`${generateAvatarColor(contact.name)} w-8 h-8 rounded-full flex items-center justify-center text-white`}>
+                    {contact.name ? contact.name.charAt(0).toUpperCase() : '?'}
+                  </div>
+                </td>
                 <td className="px-4 py-2">{contact.name}</td>
                 <td className="px-4 py-2">{contact.email}</td>
                 <td className="px-4 py-2">{contact.phone}</td>
@@ -112,13 +139,13 @@ const Papelera = () => {
                     onClick={() => handleRestoreContact(contact)}
                     className="p-2 rounded bg-blue-400 text-white hover:bg-blue-500"
                   >
-                    Restaurar
+                    <RefreshCcw className="w-5 h-5" /> {/* Icono de restaurar */}
                   </button>
                   <button
                     onClick={() => handleDeletePermanently(contact)}
                     className="p-2 rounded bg-red-400 text-white hover:bg-red-500"
                   >
-                    Eliminar permanentemente
+                    <Trash2 className="w-5 h-5" /> {/* Icono de eliminar permanentemente */}
                   </button>
                 </td>
               </tr>

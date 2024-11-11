@@ -130,9 +130,10 @@ export const deleteContactPermanently = async (id) => {
 
 // Endpoint para marcar/desmarcar como favorito
 export const toggleFavorite = async (id) => {
-  const response = await axios.put(`${BASE_URL}/${id}/favorite`);  // Aquí ya incluye el /api
+  const response = await axios.put(`${BASE_URL}/${id}/favorite`);
   return response.data;
 };
+
 
 // Función para obtener los contactos filtrados por nombre, teléfono o correo
 export const getContactsByQuery = async (query) => {
@@ -142,5 +143,16 @@ export const getContactsByQuery = async (query) => {
 
 export const getRecentContacts = async () => {
   const response = await axios.get(`${BASE_URL}/recent/all`);  // Aquí ya incluye el /api
+  return response.data;
+};
+
+
+export const markFavorite = async (id) => {
+  const response = await axios.put(`${BASE_URL}/${id}/favorite/mark`);
+  return response.data;
+};
+
+export const unmarkFavorite = async (id) => {
+  const response = await axios.put(`${BASE_URL}/${id}/favorite/unmark`);
   return response.data;
 };

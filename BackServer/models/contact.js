@@ -126,6 +126,7 @@ const getAllTrashContacts = async () => {
   return result.rows;
 };
 
+
 const deleteContactPermanently = async (id) => {
   const query = `
     DELETE FROM contacts 
@@ -148,6 +149,28 @@ const getRecentContacts = async () => {
 };
 
 
+const markFavorite = async (id) => {
+  const query = `
+    UPDATE contacts 
+    SET is_favorite = true, updated_at = NOW()
+    WHERE id = $1
+    RETURNING *;
+  `;
+  const result = await db.query(query, [id]);
+  return result.rows[0];
+};
+
+const unmarkFavorite = async (id) => {
+  const query = `
+    UPDATE contacts 
+    SET is_favorite = false, updated_at = NOW()
+    WHERE id = $1
+    RETURNING *;
+  `;
+  const result = await db.query(query, [id]);
+  return result.rows[0];
+};
+
 module.exports = {
   createContact,
   getAllContacts,
@@ -158,4 +181,6 @@ module.exports = {
   deleteContactPermanently,
   getRecentContacts, // Nueva función exportada
   getAllTrashContacts,
+  markFavorite,
+  unmarkFavorite,
 };
