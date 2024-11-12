@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { getContacts, moveContactToTrash, markFavorite, unmarkFavorite } from '../api/contactService'; 
+import { getContacts, moveContactToTrash, markFavorite, unmarkFavorite } from '../api/contactService';
 import { Star, StarOff, Edit, Trash } from 'lucide-react';
 import ContactModal from '../components/ContactModal';
 import Swal from 'sweetalert2';
@@ -71,9 +71,9 @@ function ContactList({ searchQuery }) {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const updatedContact = await moveContactToTrash(contact.id);
-          setContacts(prevContacts => prevContacts.filter((c) => c.id !== contact.id));
-          setFilteredContacts(prevFiltered => prevFiltered.filter((c) => c.id !== contact.id));
+          await moveContactToTrash(contact.id);
+          setContacts(prevContacts => prevContacts.filter(c => c.id !== contact.id));
+          setFilteredContacts(prevFiltered => prevFiltered.filter(c => c.id !== contact.id));
           Swal.fire('Movido', `${contact.name} ha sido movido a la papelera.`, 'success');
         } catch (error) {
           Swal.fire('Error', 'Hubo un problema al mover el contacto.', 'error');
@@ -138,7 +138,7 @@ function ContactList({ searchQuery }) {
               </tr>
             </thead>
             <tbody>
-              {favoriteContacts.map((contact) => (
+              {favoriteContacts.map(contact => (
                 <tr 
                   key={contact.id} 
                   className="group hover:bg-gray-100 cursor-pointer" 
@@ -158,23 +158,16 @@ function ContactList({ searchQuery }) {
                       onClick={(e) => { e.stopPropagation(); toggleFavoriteStatus(contact); }}
                       className="p-2 rounded bg-gray-200 hover:bg-gray-300"
                     >
-                      <Star className="text-yellow-400" />
+                      <Star className="text-yellow-500" />
                     </button>
                     <button
-                      onClick={(e) => { 
-                        e.stopPropagation(); 
-                        handleEdit(contact); 
-                      }}
+                      onClick={(e) => { e.stopPropagation(); handleEdit(contact); }}
                       className="p-2 rounded-3xl text-blue-400 hover:text-blue-400 hover:bg-slate-200"
                     >
                       <Edit size={20}/>
                     </button>
                     <button
-                      type="button"
-                      onClick={(e) => { 
-                        e.stopPropagation(); 
-                        handleDelete(contact); 
-                      }}
+                      onClick={(e) => { e.stopPropagation(); handleDelete(contact); }}
                       className="p-2 text-red-500 rounded-3xl hover:text-red-700 hover:bg-slate-200"
                     >
                       <Trash size={20} />
@@ -202,7 +195,7 @@ function ContactList({ searchQuery }) {
               </tr>
             </thead>
             <tbody>
-              {nonFavoriteContacts.map((contact) => (
+              {nonFavoriteContacts.map(contact => (
                 <tr 
                   key={contact.id} 
                   className="group hover:bg-gray-100 cursor-pointer" 
@@ -222,23 +215,16 @@ function ContactList({ searchQuery }) {
                       onClick={(e) => { e.stopPropagation(); toggleFavoriteStatus(contact); }}
                       className="p-2 rounded bg-gray-200 hover:bg-gray-300"
                     >
-                      <StarOff className="text-yellow-400" />
+                      <StarOff className="text-slate-500" />
                     </button>
                     <button
-                      onClick={(e) => { 
-                        e.stopPropagation(); 
-                        handleEdit(contact); 
-                      }}
+                      onClick={(e) => { e.stopPropagation(); handleEdit(contact); }}
                       className="p-2 rounded-3xl text-blue-400 hover:text-blue-400 hover:bg-slate-200"
                     >
                       <Edit size={20}/>
                     </button>
                     <button
-                      type="button"
-                      onClick={(e) => { 
-                        e.stopPropagation(); 
-                        handleDelete(contact); 
-                      }}
+                      onClick={(e) => { e.stopPropagation(); handleDelete(contact); }}
                       className="p-2 text-red-500 rounded-3xl hover:text-red-700 hover:bg-slate-200"
                     >
                       <Trash size={20} />
@@ -251,8 +237,14 @@ function ContactList({ searchQuery }) {
         </div>
       )}
 
-      {/* Modal para editar o ver detalles del contacto */}
-      {isModalOpen && <ContactModal contact={selectedContact} closeModal={closeModal} />}
+      {/* Modal para ver detalles del contacto */}
+      {isModalOpen && (
+        <ContactModal 
+          contact={selectedContact} 
+          isOpen={isModalOpen} 
+          onClose={closeModal} 
+        />
+      )}
     </div>
   );
 }

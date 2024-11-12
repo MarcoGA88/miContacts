@@ -1,10 +1,11 @@
 import React from 'react';
-import { Edit, Trash, Mail, Phone, Briefcase, User } from 'lucide-react';
-import { useNavigate } from 'react-router-dom'; 
+import { Edit, Mail, Phone, Briefcase, User } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+
 
 // Componente Modal para mostrar los detalles del contacto
 function ContactModal({ contact, isOpen, onClose, onDelete }) {
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   if (!isOpen) return null;
 
@@ -24,10 +25,6 @@ function ContactModal({ contact, isOpen, onClose, onDelete }) {
     navigate(`/edit/${contact.id}`);
   };
 
-  const handleDeleteClick = () => {
-    onDelete(contact);
-    onClose();
-  };
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -66,12 +63,7 @@ function ContactModal({ contact, isOpen, onClose, onDelete }) {
           >
             <Edit className="mr-2" /> Editar
           </button>
-          <button
-            onClick={handleDeleteClick}
-            className="flex items-center justify-center bg-red-500 text-white p-3 rounded-full hover:bg-red-600 transition duration-200 w-60 mx-auto"
-          >
-            <Trash className="mr-2" /> Eliminar
-          </button>
+
         </div>
 
         <div className="mt-4 text-center">
